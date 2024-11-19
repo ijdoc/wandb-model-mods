@@ -1,6 +1,6 @@
-# PML is poor man's launch
+# PML is the poor man's launch
 
-PML or "poor man's launch" is a template for logging custom panels to launch experiments directly from Weights & Biases
+PML is a custom panel template to clone experiments directly from the Weights & Biases workspace.
 
 ## Requirements
 
