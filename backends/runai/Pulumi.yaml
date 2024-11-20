@@ -1,3 +1,0 @@
-name: runai-trigger-backend
-runtime: python
-description: A backend to trigger Run:AI jobs using an AWS Lambda function

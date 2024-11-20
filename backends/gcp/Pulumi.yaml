@@ -1,3 +1,0 @@
-name: gcp-function-example
-runtime: python
-description: GCP Cloud Function example using Pulumi
