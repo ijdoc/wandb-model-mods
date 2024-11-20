@@ -1,0 +1,3 @@
+name: aws-lambda-example
+runtime: python
+description: AWS Lambda example using Pulumi
