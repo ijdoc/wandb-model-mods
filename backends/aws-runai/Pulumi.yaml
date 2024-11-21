@@ -1,6 +1,0 @@
-name: wandb-pml-backend-aws-runai
-runtime:
-  name: python
-  options:
-    virtualenv: venv
-description: Reference Run:AI trigger written in python (via AWS Lambda)
