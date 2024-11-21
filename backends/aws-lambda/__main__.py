@@ -28,7 +28,19 @@ lambda_func = aws.lambda_.Function(
 ##
 #########################################################################
 
-http_endpoint = aws.apigatewayv2.Api("http-api-pulumi-example", protocol_type="HTTP")
+http_endpoint = aws.apigatewayv2.Api(
+    "http-api-pulumi-example",
+    protocol_type="HTTP",
+    cors_configuration=aws.apigatewayv2.ApiCorsConfigurationArgs(
+        allow_origins=["http://localhost:5173"],  # Allow Vite app origin
+        allow_methods=[
+            "POST",
+        ],  # Allow all necessary HTTP methods
+        allow_headers=["Content-Type", "Authorization"],  # Allow common headers
+        expose_headers=["Content-Type", "Authorization"],  # Expose headers for client
+        max_age=86400,  # Cache CORS preflight responses for 1 day
+    ),
+)
 
 http_lambda_backend = aws.apigatewayv2.Integration(
     "example",

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import * as React from "react";
+import LoadingButton from '@mui/lab/LoadingButton';
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
@@ -8,34 +9,98 @@ import
   TextField,
   Box,
   FormControl,
-  Button,
 } from "@mui/material";
 import "./App.css";
 
+const Endpoints = {
+  LAMBDA: "https://olq5lzy0cl.execute-api.us-east-1.amazonaws.com/example-stage-05b1333/",
+  SAGEMAKER: "https://jw16y0bdbl.execute-api.us-east-1.amazonaws.com/example-stage-ee6a3d4/",
+};
+
+const BtnState = {
+  DISABLED: 0,
+  ENABLED: 1,
+  LOADING: 2,
+};
+
+const FnState = {
+  READY: 0,
+  RUNNING: 1,
+  SUCCESS: 2,
+  ERROR: 3,
+};
+
 function App ()
 {
-  const [isSendDisabled, setSendDisabled] = useState(true);
-
-  useEffect(() =>
-  {
-    updateName("");
-  }, []);
+  const [btnState, setBtnState] = useState(BtnState.DISABLED);
+  const [fnState, setFnState] = useState(FnState.DEFAULT);
+  const [alertMsg, setAlertMsg] = useState("");
+  const [alertType, setAlertType] = useState("info");
 
   const updateName = (value) =>
   {
     if (value.length > 0)
     {
-      setSendDisabled(false);
+      setBtnState(BtnState.ENABLED);
     } else
     {
-      setSendDisabled(true);
+      setBtnState(BtnState.DISABLED);
     }
   };
+
+  const runTrigger = async () =>
+  {
+    setBtnState(BtnState.LOADING);
+    setFnState(FnState.RUNNING);
+    const runName = document.getElementById("run-name").value;
+    const runPayload = document.getElementById("run-payload").value;
+
+    try
+    {
+      const response = await fetch(Endpoints.LAMBDA, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          runName,
+          runPayload,
+        }),
+      });
+      if (response.ok)
+      {
+        const data = await response.json(); // Read and parse the response body as JSON
+        setFnState(FnState.SUCCESS);
+        setBtnState(BtnState.ENABLED);
+        console.log(data);
+        setAlertMsg("Run has been cloned successfully");
+        setAlertType("success");
+      } else
+      {
+        const errorMessage = await response.text(); // Parse error message if available
+        setFnState(FnState.ERROR);
+        setBtnState(BtnState.ENABLED);
+        console.log(response);
+        setAlertMsg(errorMessage);
+        setAlertType("error");
+      }
+    } catch (error)
+    {
+      setFnState(FnState.ERROR);
+      setBtnState(BtnState.ENABLED);
+      setAlertMsg(error.message);
+      setAlertType("error");
+    }
+
+
+
+    // setBtnState(BtnState.DISABLED);
+  }
 
   return (
     <div>
       <Box>
-        <FormControl sx={{ m: 1 }}>
+        <FormControl sx={{ m: 1, minWidth: 480 }}>
           <Stack sx={{ width: '100%' }} spacing={1}>
             <TextField
               id="run-name"
@@ -48,8 +113,28 @@ function App ()
               focused={true}
               name="run-name"
             />
-            <Alert severity="info">Use the field above to enter the name of a run to clone</Alert>
-            <Button startIcon={<RocketLaunchIcon />} variant="contained" disabled={isSendDisabled}>Clone Run</Button>
+            <TextField
+              id="run-payload"
+              label="Configuration Overrides"
+              multiline
+              rows={4}
+              defaultValue={"{\n  \"batchSize\": 100,\n}"}
+              variant="standard"
+            />
+            <LoadingButton
+              onClick={runTrigger}
+              startIcon={<RocketLaunchIcon />}
+              variant="contained"
+              loading={btnState === BtnState.LOADING}
+              disabled={btnState === BtnState.DISABLED}
+            >
+              Clone Run
+            </LoadingButton>
+            {fnState > FnState.RUNNING &&
+              <Alert severity={alertType}>
+                {alertMsg}
+              </Alert>
+            }
           </Stack>
         </FormControl>
       </Box>
