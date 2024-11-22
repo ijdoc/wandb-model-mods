@@ -1,6 +1,0 @@
-name: wandb-pml-backend-aws-sagemaker
-runtime:
-  name: python
-  options:
-    virtualenv: venv
-description: Reference SageMaker trigger written in python (via AWS Lambda)

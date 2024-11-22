@@ -49,7 +49,7 @@ frontend/                  # React + Vite frontend example
 └── ...
 backends/                  # Pulumi backend examples
 ├── aws-lambda/            # AWS Lambda trigger
-├── aws-sagemaker/         # AWS Lambda → SageMaker trigger
+├── aws-sagemaker/         # TODO: AWS Lambda → SageMaker trigger
 ├── aws-onprem/            # TODO: AWS Lambda → On-prem trigger
 ├── azure/                 # TODO: Azure cloud function trigger
 ├── gcp/                   # TODO: GCP cloud function trigger
