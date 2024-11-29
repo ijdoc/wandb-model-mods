@@ -1,15 +1,11 @@
-# PML is the poor man's launch
+# ModelMods - custom interactive panels for your W&B Workspace
 
-PML is a set of automation templates for your Weights & Biases (W&B) projects. PML has two primary use cases:
-1. **When logging the frontend as an HTML panel**: you can trigger an arbitrary script, using any of the provided backend cloud function examples, directly from the W&B UI.
-2. **When deploying a backend**: you can implement:
-   - a custom backend handler for your logged custom frontend trigger, or
-   - a serverless handler for your W&B automations (a.k.a. webhooks), or
+Improve your ML workflows with custom, interactive web panels (applets) you can use, extend and log to any W&B workspace. ModelMods has two complementary uses:
+1. **When logging a frontend as an HTML object**: you will extend the functionality of your Weights & Biases (W&B) workspace, with a custom interactive panel (applet).
+2. **When deploying a backend** you can either:
+   - implement a custom backend handler for your logged applet, or
+   - setup a serverless handler for your W&B automations (a.k.a. webhooks), or
    - both!
-
-## Motivation
-
-W&B used to offer a built-in, no-frills orchestration feature called 'Launch', which has since been deprecated. The templates in this repo should facilitate the integration of W&B with other best-in-class 3rd-party tools that replace, and improve on, the original Launch functionality.
 
 ## Getting Started
 
