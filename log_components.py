@@ -4,7 +4,7 @@ import os
 def main():
     # Initialize a new run
     with wandb.init(
-        config={"components": ["qa-bot", "clone-run"]},
+        config={"components": ["annotator", "qa-bot", "qa-multibot", "clone-run"]},
         job_type="log-components",
         project="components",
     ) as run:
