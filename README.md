@@ -41,7 +41,9 @@ The backend at [backends/flask-demo-full/](backends/flask-demo-full/) provides e
 ## Repo Organization
 ```
 clone-run/                 # Provides a simple interface to clone a W&B run
+annotator/                 # Provides a sample LLM annotation interface
 qa-bot/                    # Provides a simple Q&A bot interface
+qa-multibot/               # Provides a simple Q&A multibot interface
 backends/                  # Backend examples
 ├── aws-lambda-pulumi/     # Sample IaC AWS Lambda backend built with Pulumi
 ├── flask-demo-full/       # Demo flask backend for all components
