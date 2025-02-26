@@ -132,7 +132,7 @@ function App ()
                     </Avatar>
                     <div>
                       {"Hello! I'm a Q&A bot. Ask me anything!"}<br />
-                      {<Link target="_blank" href={`https://wandb.ai/${wandbEntity}/${wandbProject}/weave/calls?filter={"opVersionRefs":["weave:///${wandbEntity}/${wandbProject}/op/${weaveOp}:*"]}`}>{wandbEntity}/{wandbProject}</Link>}
+                      {<Link href={`https://wandb.ai/${wandbEntity}/${wandbProject}/weave/calls?filter={"opVersionRefs":["weave:///${wandbEntity}/${wandbProject}/op/${weaveOp}:*"]}`}>{wandbEntity}/{wandbProject}</Link>}
                     </div>
                   </Stack>
                 </Paper>
